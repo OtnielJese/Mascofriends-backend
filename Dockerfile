@@ -1,6 +1,13 @@
+# Stage 1: Build
+FROM eclipse-temurin:21-jdk-alpine AS build
+WORKDIR /app
+COPY . .
+RUN apk add --no-cache maven && mvn clean package -DskipTests
+
+# Stage 2: Runtime
 FROM eclipse-temurin:21-jre-alpine
-ARG JAR_FILE=target/vetivet-backend-1.0.0.jar
-COPY ${JAR_FILE} app_vet.jar
+WORKDIR /app
+COPY --from=build /app/target/vetivet-backend-1.0.0.jar app_vet.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app_vet.jar"]
 
