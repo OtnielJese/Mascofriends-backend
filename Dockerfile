@@ -9,5 +9,6 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 COPY --from=build /app/target/vetivet-backend-1.0.0.jar app_vet.jar
 EXPOSE 8080
-ENTRYPOINT ["sh", "-c", "java -Dspring.profiles.active=$SPRING_PROFILES_ACTIVE -Dspring.datasource.url=jdbc:postgresql://$SUPABASE_HOST:$SUPABASE_PORT/$SUPABASE_DATABASE -Dspring.datasource.username=$SUPABASE_USERNAME -Dspring.datasource.password=$SUPABASE_PASSWORD -Dapp.jwt.secret=$JWT_SECRET -jar app_vet.jar"]
+ENV JAVA_OPTS="-Dspring.profiles.active=${SPRING_PROFILES_ACTIVE} -Dspring.datasource.url=jdbc:postgresql://${SUPABASE_HOST}:${SUPABASE_PORT}/${SUPABASE_DATABASE} -Dspring.datasource.username=${SUPABASE_USERNAME} -Dspring.datasource.password=${SUPABASE_PASSWORD} -Dapp.jwt.secret=${JWT_SECRET}"
+ENTRYPOINT exec java $JAVA_OPTS -jar app_vet.jar
 
