@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM amazoncorretto:17 as builder
+FROM maven:3.9-amazoncorretto-17 as builder
 WORKDIR /build
 COPY pom.xml .
 COPY src ./src
