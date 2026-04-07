@@ -9,5 +9,5 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 COPY --from=build /app/target/vetivet-backend-1.0.0.jar app_vet.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app_vet.jar"]
+ENTRYPOINT ["sh", "-c", "java -Dspring.profiles.active=$SPRING_PROFILES_ACTIVE -jar app_vet.jar"]
 
