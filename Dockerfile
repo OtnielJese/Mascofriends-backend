@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21-jdk-slim
+FROM amazoncorretto:17
 ARG JAR_FILE=target/vetivet-backend-1.0.0.jar
 COPY ${JAR_FILE} app_vet.jar
 EXPOSE 8080
