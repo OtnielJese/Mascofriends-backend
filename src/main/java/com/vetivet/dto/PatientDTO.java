@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.math.BigDecimal;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class PatientDTO {
@@ -27,7 +28,7 @@ public class PatientDTO {
     private LocalDate birthDate;
 
     @DecimalMin(value = "0.0", message = "El peso debe ser positivo")
-    private Double weight;
+    private BigDecimal weight;
 
     @Size(max = 100)
     private String color;

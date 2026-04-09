@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "patients")
@@ -35,7 +36,7 @@ public class Patient {
     private LocalDate birthDate;
 
     @DecimalMin("0.0")
-    private Double weight;        // kg
+    private BigDecimal weight;        // kg
 
     @Size(max = 100)
     private String color;
