@@ -9,6 +9,6 @@ RUN mvn clean package -DskipTests
 FROM amazoncorretto:17
 COPY --from=builder /build/target/vetivet-backend-1.0.0.jar app_vet.jar
 EXPOSE 8080
-# Hardcode supabase profile - PRODUCTION ONLY
-ENTRYPOINT ["java", "-Dspring.profiles.active=supabase", "-jar", "app_vet.jar"]
+# Use shell to ensure environment variables are passed
+ENTRYPOINT ["sh", "-c", "java -Dspring.profiles.active=supabase -jar app_vet.jar"]
 
