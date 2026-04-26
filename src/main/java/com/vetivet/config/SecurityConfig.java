@@ -49,7 +49,8 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/public/**").permitAll()
                         
-                        // HEALTH CHECK - Public for monitoring (MUST come BEFORE /actuator/**)
+                        // HEALTH CHECK ENDPOINTS - Public for monitoring
+                        .requestMatchers("/health/**").permitAll()
                         .requestMatchers("/actuator/health").permitAll()
                         
                         // CORS preflight
