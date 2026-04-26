@@ -51,5 +51,8 @@ Thumbs.db
 *.env
 
 # Application properties with credentials
+# CRITICAL: Never commit application properties files with environment variables
 application-local.properties
 application-prod.properties
+application-supabase.properties
+application-azure.properties
