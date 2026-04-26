@@ -45,24 +45,35 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // Public endpoints
+                        // PUBLIC ENDPOINTS (no authentication required)
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/public/**").permitAll()
+                        
+                        // HEALTH CHECK - Public for monitoring (MUST come BEFORE /actuator/**)
                         .requestMatchers("/actuator/health").permitAll()
+                        
+                        // CORS preflight
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        // Protected actuator endpoints
+                        
+                        // ACTUATOR SECURITY - All other actuator endpoints require ADMIN
+                        // This blocks: /actuator/env, /actuator/beans, /actuator/metrics, etc.
                         .requestMatchers("/actuator/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
-                        // Admin-only CRUD
+                        
+                        // ADMIN-ONLY CRUD OPERATIONS
                         .requestMatchers("/owners/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
                         .requestMatchers("/patients/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
-                        // Appointments — clients can create without login; admins manage
+                        
+                        // APPOINTMENTS - Public create, Admin-only read/update/delete
                         .requestMatchers(HttpMethod.POST, "/appointments").permitAll()
                         .requestMatchers(HttpMethod.GET, "/appointments/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/appointments/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
                         .requestMatchers(HttpMethod.PATCH, "/appointments/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/appointments/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
-                        // WhatsApp link generation
+                        
+                        // WHATSAPP INTEGRATION - Public
                         .requestMatchers("/whatsapp/**").permitAll()
+                        
+                        // DEFAULT - Everything else requires authentication
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers
