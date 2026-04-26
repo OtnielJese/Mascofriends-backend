@@ -51,8 +51,9 @@ Thumbs.db
 *.env
 
 # Application properties with credentials
-# CRITICAL: Never commit application properties files with environment variables
+# CRITICAL: Never commit application properties files with HARDCODED values
+# But it's SAFE to commit if they contain ONLY environment variables (${VAR_NAME})
 application-local.properties
 application-prod.properties
-application-supabase.properties
 application-azure.properties
+# application-supabase.properties is safe - contains only env variables, not real credentials
