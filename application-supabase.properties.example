@@ -1,0 +1,34 @@
+# =========================================
+# Supabase (PostgreSQL) - PRODUCTION PROFILE
+# =========================================
+# COPY THIS FILE as application-supabase.properties and fill in YOUR environment variables
+# This file shows the REQUIRED environment variables - never commit actual credentials!
+
+# PostgreSQL Connection Details (from Supabase dashboard)
+# Get these from: Supabase → Project Settings → Database → Connection String (Session Pooler)
+SUPABASE_HOST=aws-1-us-east-2.pooler.supabase.com          # Session Pooler host (NOT direct connection)
+SUPABASE_PORT=5432                                          # Session Pooler port (NOT 6543 or direct 5432)
+SUPABASE_DATABASE=postgres                                  # Usually 'postgres'
+SUPABASE_USERNAME=postgres.ypaqsjflkxkwtsiresvh            # Include project suffix!
+SUPABASE_PASSWORD=Your_Secure_Password_Here                # Regenerate in Supabase dashboard
+
+# Security & JWT
+JWT_SECRET=Your_Very_Long_Random_Secret_Key_Min_32_Chars    # Use strong, random secret (min 32 chars)
+JWT_EXPIRATION=900000                                       # 15 minutes in milliseconds (900000)
+REFRESH_TOKEN_EXPIRATION=604800000                          # 7 days in milliseconds
+
+# WhatsApp Integration
+WHATSAPP_NUMBER=+51914867621                                # Your clinic's WhatsApp number
+WHATSAPP_DEFAULT_MESSAGE=Hola! Me gustaría agendar una cita para mi mascota.
+
+# CORS Configuration
+CORS_ALLOWED_ORIGINS=https://mascofriends.vercel.app        # Your frontend URL (production)
+# For development: http://localhost:5173,http://localhost:3000
+
+# Render/Railway Deployment (Optional)
+PORT=8080                                                   # Default port (Render uses PORT)
+
+# Actuator (for health checks)
+# See application-supabase.properties for security configuration
+# Health endpoint: GET /actuator/health (public, no auth needed)
+# Other endpoints: BLOCKED (require ADMIN role)
