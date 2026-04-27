@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/patients")
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
+@PreAuthorize("hasAnyAuthority('ADMIN', 'SUPER_ADMIN')")
 public class PatientController {
 
     private final PatientService patientService;

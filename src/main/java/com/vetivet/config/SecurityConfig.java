@@ -58,18 +58,18 @@ public class SecurityConfig {
                         
                         // ACTUATOR SECURITY - All other actuator endpoints require ADMIN
                         // This blocks: /actuator/env, /actuator/beans, /actuator/metrics, etc.
-                        .requestMatchers("/actuator/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
+                        .requestMatchers("/actuator/**").hasAnyAuthority("ADMIN", "SUPER_ADMIN")
                         
                         // ADMIN-ONLY CRUD OPERATIONS
-                        .requestMatchers("/owners/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
-                        .requestMatchers("/patients/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
+                        .requestMatchers("/owners/**").hasAnyAuthority("ADMIN", "SUPER_ADMIN")
+                        .requestMatchers("/patients/**").hasAnyAuthority("ADMIN", "SUPER_ADMIN")
                         
                         // APPOINTMENTS - Public create, Admin-only read/update/delete
                         .requestMatchers(HttpMethod.POST, "/appointments").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/appointments/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/appointments/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
-                        .requestMatchers(HttpMethod.PATCH, "/appointments/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/appointments/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/appointments/**").hasAnyAuthority("ADMIN", "SUPER_ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/appointments/**").hasAnyAuthority("ADMIN", "SUPER_ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, "/appointments/**").hasAnyAuthority("ADMIN", "SUPER_ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/appointments/**").hasAnyAuthority("ADMIN", "SUPER_ADMIN")
                         
                         // WHATSAPP INTEGRATION - Public
                         .requestMatchers("/whatsapp/**").permitAll()
