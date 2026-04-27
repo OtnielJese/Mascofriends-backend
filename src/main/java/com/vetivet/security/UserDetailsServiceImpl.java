@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                         "Usuario no encontrado: " + usernameOrEmail));
 
         var authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName().name()))
                 .collect(Collectors.toSet());
 
         return org.springframework.security.core.userdetails.User.builder()
